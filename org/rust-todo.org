@@ -1,0 +1,10 @@
+#+title: rust-todo
+#+category: rust
+
+* Rust Todo (CLI)
+** options:
+   - create (Create a todo item)
+   - edit (Edit a todo item)
+   - delete (Delete a todo item)
+   - toggle (Toggle the status of a todo item)
+   - list (List all todo items)
