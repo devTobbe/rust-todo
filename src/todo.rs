@@ -30,7 +30,8 @@ impl Todos {
             return Err(io::Error::new(io::ErrorKind::InvalidInput, "Index out of bounds"));
         }
 
-        let title = &self.todo_list[index].title;
+        let title = self.todo_list.remove(index).title;
+
         Ok((&title).to_string())
     }
 }
