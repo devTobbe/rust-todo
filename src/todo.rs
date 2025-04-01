@@ -1,3 +1,5 @@
+use std::io;
+
 use time::{UtcDateTime};
 
 // Base todo struct
@@ -8,7 +10,7 @@ struct Todo {
     completed: bool,
 }
 
-struct Todos{todo: Vec<Todo>}
+struct Todos{todo_list: Vec<Todo>}
 
 // Implemented methods for a todo item.
 impl Todos {
@@ -20,6 +22,15 @@ impl Todos {
             completed: false,
         };
 
-        self.todo.push(todo);
+        self.todo_list.push(todo);
+    }
+
+    pub fn delete(&mut self, index: usize) -> Result<String,io::Error> {
+        if self.todo_list.len() > index {
+            return Err(io::Error::new(io::ErrorKind::InvalidInput, "Index out of bounds"));
+        }
+
+        let title = &self.todo_list[index].title;
+        Ok((&title).to_string())
     }
 }
