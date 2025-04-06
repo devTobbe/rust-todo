@@ -1,23 +1,28 @@
 use std::io;
 
-use time::{UtcDateTime};
+use time::UtcDateTime;
 
 // Base todo struct
-struct Todo {
+pub struct Todo {
     created_at: UtcDateTime,
-    completed_at: UtcDateTime,
+    completed_at: Option<UtcDateTime>,
     title: String,
     completed: bool,
 }
 
-struct Todos{todo_list: Vec<Todo>}
+pub struct Todos {
+    todo_list: Vec<Todo>,
+}
 
 // Implemented methods for a todo item.
 impl Todos {
-    pub fn new(&mut self, title: String) {
+    pub fn new() -> Self {
+        Self {todo_list: Vec::new()}
+    }
+    pub fn add(&mut self, title: String) {
         let todo = Todo {
             created_at: time::UtcDateTime::now(),
-            completed_at:time::UtcDateTime::now(),
+            completed_at: None,
             title,
             completed: false,
         };
@@ -25,13 +30,20 @@ impl Todos {
         self.todo_list.push(todo);
     }
 
-    pub fn delete(&mut self, index: usize) -> Result<String,io::Error> {
+    pub fn delete(&mut self, index: usize) -> Result<String, io::Error> {
         if self.todo_list.len() > index {
-            return Err(io::Error::new(io::ErrorKind::InvalidInput, "Index out of bounds"));
+            return Err(io::Error::new(
+                io::ErrorKind::InvalidInput,
+                "Index out of bounds",
+            ));
         }
 
         let title = self.todo_list.remove(index).title;
 
         Ok((&title).to_string())
+    }
+
+    pub fn list(& self) {
+
     }
 }
