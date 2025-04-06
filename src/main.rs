@@ -19,12 +19,12 @@ fn main() {
             .expect("Failed to read line");
 
         // TODO: Replace this with options handling
-        match choice.as_str() {
+        match choice.as_str().trim() {
             "create" => create_opt(String::from("Test"), &mut todos) ,
             "edit" => println!("Here is the EDIT TODO function"),
             "delete" => println!("Here is the DELETE TODO function"),
             "toggle" => println!("Here is the TOGGLE TODO function"),
-            "list" => println!("Here is the LIST TODO function"),
+            "list" => todos.list(),
             _ => println!(
                 "Try using the following: create, edit, delete,
                 toggle, list"

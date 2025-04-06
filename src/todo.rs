@@ -43,7 +43,15 @@ impl Todos {
         Ok((&title).to_string())
     }
 
-    pub fn list(& self) {
+    pub fn list(&self) {
+        for (i, val) in self.todo_list.iter().enumerate() {
+            let mut completed_at = String::from("");
+            if val.completed_at.is_some(){
+                completed_at = val.completed_at.unwrap().to_string();
+            }
+
+            println!("{i} {0}: Done: {1}, Create: {2} Completed: {3}", val.title, val.completed.to_string(), val.created_at.to_string(), completed_at);
+        }
 
     }
 }
