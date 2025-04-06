@@ -5,7 +5,7 @@ use time::UtcDateTime;
 // Base todo struct
 pub struct Todo {
     created_at: UtcDateTime,
-    completed_at: UtcDateTime,
+    completed_at: Option<UtcDateTime>,
     title: String,
     completed: bool,
 }
@@ -22,7 +22,7 @@ impl Todos {
     pub fn add(&mut self, title: String) {
         let todo = Todo {
             created_at: time::UtcDateTime::now(),
-            completed_at: time::UtcDateTime::now(),
+            completed_at: None,
             title,
             completed: false,
         };
@@ -41,5 +41,9 @@ impl Todos {
         let title = self.todo_list.remove(index).title;
 
         Ok((&title).to_string())
+    }
+
+    pub fn list(& self) {
+
     }
 }
