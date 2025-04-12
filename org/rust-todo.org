@@ -9,4 +9,5 @@
    - toggle (Toggle the status of a todo item)
    - list (List all todo items)
 ** Todos
-*** TODO 
+*** TODO Add edit function to the todo struct
+*** TODO Add storage functionality
