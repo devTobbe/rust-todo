@@ -60,6 +60,9 @@ impl Todos {
         Ok(String::from("Ok"))
     }
 
+    pub fn edit(&self, index: usize, title: String) {
+    }
+
     pub fn list(&self) {
         for (i, val) in self.todo_list.iter().enumerate() {
             let mut completed_at = String::from("");
@@ -76,4 +79,5 @@ impl Todos {
             );
         }
     }
+
 }
