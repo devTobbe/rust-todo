@@ -3,7 +3,6 @@ mod todo;
 
 use clap::Parser;
 use command::{Cli, Command};
-use std::io;
 
 fn main() {
     println!("Welcome to the RUSTY TODO-LIST");
@@ -23,7 +22,7 @@ fn main() {
             let _ = todos.toggle(index);
         }
         Command::Edit { index, title }  => {
-            todos.edit(index, title)
+            let _ = todos.edit(index, title);
         }
         Command::List => {
             todos.list()
