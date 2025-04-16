@@ -1,13 +1,14 @@
 mod command;
+mod storage;
 mod todo;
 
 use clap::Parser;
 use command::{Cli, Command};
 
 fn main() {
+    let mut todos = storage::readfile();
     println!("Welcome to the RUSTY TODO-LIST");
-    // TODO: Add storage loading here later...
-    let mut todos = todo::Todos::new();
+    //// TODO: Add storage loading here later...
 
     let cli = Cli::parse();
 
@@ -28,4 +29,5 @@ fn main() {
             todos.list()
         }
     }
+    storage::writefile(&todos);
 }
