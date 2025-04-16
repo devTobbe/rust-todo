@@ -59,7 +59,17 @@ impl Todos {
         Ok(String::from("Ok"))
     }
 
-    pub fn edit(&self, index: usize, title: String) {}
+    pub fn edit(&mut self, index: usize, title: String) -> Result<String, io::Error> {
+        if self.todo_list.len() < index {
+            return Err(io::Error::new(
+                io::ErrorKind::InvalidInput,
+                "Index out of bounds",
+            ));
+        }
+
+        self.todo_list[index].title = title;
+        Ok(String::from("Ok"))
+    }
 
     pub fn list(&self) {
         for (i, val) in self.todo_list.iter().enumerate() {

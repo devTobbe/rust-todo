@@ -23,7 +23,7 @@ fn main() {
             let _ = todos.toggle(index);
         }
         Command::Edit { index, title }  => {
-            todos.edit(index, title)
+            let _ = todos.edit(index, title);
         }
         Command::List => {
             todos.list()
