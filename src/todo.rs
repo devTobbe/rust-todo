@@ -59,10 +59,10 @@ impl Todos {
         Ok(String::from("Ok"))
     }
 
-    pub fn edit(&mut self, index: usize, title: String) -> Result<String, io::Error> {
+    pub fn edit(&mut self, index: usize, title: String) -> Result<String, Error> {
         if self.todo_list.len() < index {
-            return Err(io::Error::new(
-                io::ErrorKind::InvalidInput,
+            return Err(Error::new(
+                ErrorKind::InvalidInput,
                 "Index out of bounds",
             ));
         }
