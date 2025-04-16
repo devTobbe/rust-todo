@@ -1,17 +1,22 @@
-use std::io;
-
-use time::UtcDateTime;
+use serde::{Deserialize, Serialize};
+use std::io::Error;
+use std::io::ErrorKind;
+use time::OffsetDateTime;
 
 // Base todo struct
+#[serde_with::serde_as]
+#[derive(Deserialize, Serialize, Debug)]
 pub struct Todo {
-    created_at: UtcDateTime,
-    completed_at: Option<UtcDateTime>,
-    title: String,
-    completed: bool,
+    #[serde_as(as = "time::format_description::well_known::Rfc3339")]
+    pub created_at: OffsetDateTime,
+    #[serde_as(as = "Option<time::format_description::well_known::Rfc3339>")]
+    pub completed_at: Option<OffsetDateTime>,
+    pub title: String,
+    pub completed: bool,
 }
 
 pub struct Todos {
-    todo_list: Vec<Todo>,
+    pub todo_list: Vec<Todo>,
 }
 
 // Implemented methods for a todo item.
@@ -23,7 +28,7 @@ impl Todos {
     }
     pub fn add(&mut self, title: String) {
         let todo = Todo {
-            created_at: time::UtcDateTime::now(),
+            created_at: time::OffsetDateTime::now_utc(),
             completed_at: None,
             title,
             completed: false,
@@ -32,27 +37,21 @@ impl Todos {
         self.todo_list.push(todo);
     }
 
-    pub fn toggle(&mut self, index: usize) -> Result<String, io::Error> {
+    pub fn toggle(&mut self, index: usize) -> Result<String, Error> {
         if self.todo_list.len() < index {
-            return Err(io::Error::new(
-                io::ErrorKind::InvalidInput,
-                "Index out of bounds",
-            ));
+            return Err(Error::new(ErrorKind::InvalidInput, "Index out of bounds"));
         }
 
         let status = !self.todo_list.get(index).unwrap().completed;
         self.todo_list.get_mut(index).unwrap().completed = status;
-        self.todo_list.get_mut(index).unwrap().completed_at = Some(time::UtcDateTime::now());
+        self.todo_list.get_mut(index).unwrap().completed_at = Some(time::OffsetDateTime::now_utc());
 
         Ok(String::from("OK"))
     }
 
-    pub fn delete(&mut self, index: usize) -> Result<String, io::Error> {
+    pub fn delete(&mut self, index: usize) -> Result<String, Error> {
         if self.todo_list.len() < index {
-            return Err(io::Error::new(
-                io::ErrorKind::InvalidInput,
-                "Index out of bounds",
-            ));
+            return Err(Error::new(ErrorKind::InvalidInput, "Index out of bounds"));
         }
 
         self.todo_list.remove(index);
@@ -60,8 +59,7 @@ impl Todos {
         Ok(String::from("Ok"))
     }
 
-    pub fn edit(&self, index: usize, title: String) {
-    }
+    pub fn edit(&self, index: usize, title: String) {}
 
     pub fn list(&self) {
         for (i, val) in self.todo_list.iter().enumerate() {
@@ -79,5 +77,4 @@ impl Todos {
             );
         }
     }
-
 }
