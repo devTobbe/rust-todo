@@ -1,5 +1,7 @@
 # Rust-Todo
 
 ## Todo
-- [ ] Finish todo.rs
-- [ ] Finish command.rs
+- [x] Finish todo.rs
+- [x] Finish command.rs
+- [x] Finish storage.rs
+- [x] Finish main.rs
