@@ -6,12 +6,11 @@ use clap::Parser;
 use command::{Cli, Command};
 
 fn main() {
+    // Read from storage file
     let mut todos = storage::readfile();
-    println!("Welcome to the RUSTY TODO-LIST");
-    //// TODO: Add storage loading here later...
-
     let cli = Cli::parse();
 
+    // Handle cli input flags/options
     match cli.command {
         Command::Create { title } => {
             todos.add(title);
@@ -29,5 +28,6 @@ fn main() {
             todos.list()
         }
     }
+    // Write to storage file
     storage::writefile(&todos);
 }
